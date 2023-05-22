@@ -269,6 +269,8 @@ export const contenteditableDivRange = () => {
 
 export const move2end = (ref:React.RefObject<HTMLDivElement>) => {
   const sel = window.getSelection();
+  // 返回一个 Range 对象。
+  // Range 接口表示一个包含节点与文本节点的一部分的文档片段。
   const range = document.createRange();
   range.selectNodeContents(ref.current!);
   range.collapse(false);

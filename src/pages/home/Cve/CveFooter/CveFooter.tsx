@@ -388,13 +388,16 @@ const CveFooter: ForwardRefRenderFunction<any, CveFooterProps> = ({ sendMsg, cur
     im.typingStatusUpdate({ recvID, msgTip });
   };
 
+  // 聊天输入框回车
   const keyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    // console.log('----',e.ctrlKey)
     if (e.key === "Enter" && e.ctrlKey) {
       e.preventDefault();
       contenteditableDivRange();
       move2end(inputRef.current!.el);
     }
     if (e.key === "Enter" && !e.ctrlKey) {
+      console.log("---聊天输入框回车123")
       e.preventDefault();
 
       if (robotWaitCheck()) {

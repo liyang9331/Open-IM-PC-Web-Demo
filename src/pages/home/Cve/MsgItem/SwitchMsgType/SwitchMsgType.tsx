@@ -15,7 +15,7 @@ import VideoPlayer from "../../../../../components/VideoPlayer";
 import { MessageItem, ConversationItem, PictureElem, MergeElem } from "../../../../../utils/open_im_sdk_wasm/types/entity";
 import { MessageType } from "../../../../../utils/open_im_sdk_wasm/types/enum";
 import { AMapKey } from "../../../../../config";
-
+import text2hyperlink from "../../../../../utils/text2hyperlink";
 type SwitchMsgTypeProps = {
   msg: MessageItem;
   audio: React.RefObject<HTMLAudioElement>;
@@ -138,12 +138,17 @@ const SwitchMsgType: FC<SwitchMsgTypeProps> = ({ msg, audio, curCve, selfID, img
   };
 
   const msgType = () => {
+    // console.log('----------'+msg.contentType)
+    // console.log('----------'+MessageType.TEXTMESSAGE)
+    // return false
     switch (msg.contentType) {
       case MessageType.TEXTMESSAGE:
         let mstr = msg.content;
         mstr = parseEmojiFace(mstr);
         mstr = parseUrl(mstr);
         mstr = parseBr(mstr);
+        // console.log(typeof(mstr))
+        mstr = text2hyperlink(mstr);
         return (
           <>
             <div ref={textRef} style={sty} className={`chat_bg_msg_content_text ${!isSingle ? "nick_magin" : ""}`}>
@@ -252,7 +257,9 @@ const SwitchMsgType: FC<SwitchMsgTypeProps> = ({ msg, audio, curCve, selfID, img
             <div className="title">{merEl.title}</div>
             <div className="content">
               {merEl.abstractList?.map((m, idx) => (
-                <div key={idx} className="item">{m}</div>
+                <div key={idx} className="item">
+                  {m}
+                </div>
               ))}
             </div>
             {timeTip()}

@@ -52,7 +52,7 @@ function catchErrorHandle(error) {
     throw error;
 }
 function registeMethodOnWindow(name, realName) {
-    console.info(`=> (database api) registe ${realName ?? name}`);
+    // console.info(`=> (database api) registe ${realName ?? name}`);
     return async (...args) => {
         if (!rpc || !worker) {
             initWorker();
@@ -61,16 +61,16 @@ function registeMethodOnWindow(name, realName) {
             return;
         }
         try {
-            console.info(
-              `=> (invoked by go wasm) run ${
-                realName ?? name
-              } method with args ${JSON.stringify(args)}`
-            );
+            // console.info(
+            //   `=> (invoked by go wasm) run ${
+            //     realName ?? name
+            //   } method with args ${JSON.stringify(args)}`
+            // );
             const response = await rpc.invoke(name, ...args, { timeout: 5000000 });
-            console.info(
-              `=> (invoked by go wasm) run ${realName ?? name} method with response `,
-              JSON.stringify(response)
-            );
+            // console.info(
+            //   `=> (invoked by go wasm) run ${realName ?? name} method with response `,
+            //   JSON.stringify(response)
+            // );
             return JSON.stringify(response);
         }
         catch (error) {
